@@ -6,6 +6,7 @@ const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
 const LoginRedirect = ({searchParams}) => {
     const [user, setUser] = useState(null);
     useEffect(() => {
+        console.log(`${backendUrl}/api/auth/google/callback?id_token=${searchParams.id_token}&access_token=${searchParams.access_token}`)
         fetch(`${backendUrl}/api/auth/google/callback?id_token=${searchParams.id_token}&access_token=${searchParams.access_token}`)
             .then(res => {
                 if (res.status !== 200) {
@@ -27,7 +28,7 @@ const LoginRedirect = ({searchParams}) => {
                 console.log(err);
                 setText('An error occurred, please see the developer console.')
             });
-    }, []);
+    }, [searchParams]);
 
     return <p>{JSON.stringify(user)}</p>
 };
